@@ -1,7 +1,9 @@
 const express=require("express");
 const cors=require("cors");
 const { connectDB } = require("./config/config");
-const userRoutes=require("./routes/user.route")
+const userRoutes=require("./routes/user.route");
+const listingRoutes=require("./routes/listing.route");
+const bookingRoutes=require("./routes/booking.route")
 
 
 const app=express();
@@ -19,3 +21,5 @@ app.get("/",(req,res)=>{
 
 app.use("/api/v1/signup",userRoutes)
 app.use("/api/v1/login",userRoutes)
+app.use("/api/v1/listing",listingRoutes)
+app.use("/api/v1/booking",bookingRoutes)
