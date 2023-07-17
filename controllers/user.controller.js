@@ -10,16 +10,18 @@ exports.signup=async(req,res)=>{
     const {password,email,name,role,phone}=req.body;
     const hashedPass=bcrypt.hashSync(password,10);
     const modifiedData={name,email,password:hashedPass,role,phone}
-    const isExist=await getUserByEmailService(data.email);
+    const isExist=await getUserByEmailService(email);
     if(isExist){
         res.status(200).json({
             data:null,
             message:"user already exist with this email.",
             token:null
         })
+        return
     }
     const user=await signUpService(modifiedData);
-    const token=Jwt.sign({id:user.id},process.env.SECRET,{expiresIn:"1d"})
+    
+    const token=Jwt.sign({email:user.email},process.env.SECRET,{expiresIn:"1d"})
     res.status(200).json({
         data:user,
         message:"successfully logged in.",
@@ -27,9 +29,10 @@ exports.signup=async(req,res)=>{
     })
     return;
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             data:null,
-            message:"something went wrong.",
+            message:`something went wrong.${error.message}`,
             token:null
         })
     }
@@ -37,9 +40,20 @@ exports.signup=async(req,res)=>{
 
 exports.login=async(req,res)=>{
     try {
-        
+        const {email}=req.decoded;
+        const user=await getUserByEmailService(email);
+        const token=Jwt.sign({email},process.env.SECRET,{expiresIn:"2d"})
+        res.status(200).json({
+            data:user,
+            message:"successfully logged in.",
+            token
+        })
     } catch (error) {
-        
+        res.status(500).json({
+            data:null,
+            message:`something went wrong.${error.message}`,
+            token:null
+        })
     }
 }
 

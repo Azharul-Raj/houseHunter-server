@@ -7,7 +7,7 @@ exports.verifyJWT = (req, res, next) => {
         res.status(401).send('UNAUTHORIZED')
     }
     const token = authHead.split(' ')[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err,decoded) => {
+    jwt.verify(token, process.env.SECRET, (err,decoded) => {
         if (err) {
             return res.status(401).send('INVALID TOKEN')
         }

@@ -5,6 +5,7 @@ exports.signUpService=async(data)=>{
     return user;
 }
 exports.getUserByEmailService=async(email)=>{
-    const user=await User.findById({email});
+    const user=await User.findOne({email:email});
+    // console.log(user)
     return user;
 }

@@ -18,3 +18,4 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/api/v1/signup",userRoutes)
+app.use("/api/v1/login",userRoutes)
