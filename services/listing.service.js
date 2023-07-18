@@ -5,6 +5,11 @@ exports.createListingService=async(data)=>{
     return listing;
 }
 
+exports.getListingsService=async()=>{
+    const listings=await House.find({});
+    return listings;
+}
+
 exports.getListingByIdService=async(id)=>{
     const listing=await House.findOne({_id:id});
     return listing;

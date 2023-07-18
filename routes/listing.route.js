@@ -1,11 +1,13 @@
 const express=require("express");
-const userController=require("../controllers/user.controller");
+const listingController=require("../controllers/listing.controller")
 const middleware=require("../middleware/jwtVerify");
 
 const router=express.Router();
 
 router.route("/")
-.post(userController.signup)
-.get(middleware.verifyJWT,userController.login)
+.post(listingController.createListing)
+.get(listingController.getListings)
+.put(listingController.updateListing)
+.delete(listingController.deleteListing)
 
 module.exports=router;

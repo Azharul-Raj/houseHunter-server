@@ -40,8 +40,16 @@ exports.signup=async(req,res)=>{
 
 exports.login=async(req,res)=>{
     try {
-        const {email}=req.decoded;
+        const {email}=req.body;
         const user=await getUserByEmailService(email);
+        if(!user){
+            res.status(404).json({
+                data:null,
+                message:"no user found with this credentials.",
+                token:null
+            })
+            return;
+        }
         const token=Jwt.sign({email},process.env.SECRET,{expiresIn:"2d"})
         res.status(200).json({
             data:user,

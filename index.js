@@ -16,10 +16,10 @@ app.listen(PORT,()=>{
 connectDB();
 
 app.get("/",(req,res)=>{
-    console.log(`YOUR SERVER IS CORRECTLY RUNNING.`)
+    res.send(`YOUR SERVER IS CORRECTLY RUNNING.`)
 })
 
 app.use("/api/v1/signup",userRoutes)
 app.use("/api/v1/login",userRoutes)
 app.use("/api/v1/listing",listingRoutes)
-app.use("/api/v1/booking",bookingRoutes)
+// app.use("/api/v1/booking",bookingRoutes)

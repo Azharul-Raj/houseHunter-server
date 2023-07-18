@@ -45,6 +45,10 @@ const houseSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    reserved:{
+        type:Boolean,
+        default:false
+    }
 })
 
 module.exports.House=new mongoose.model("House",houseSchema);
