@@ -1,10 +1,18 @@
-const { createListingService, updateListingByIdService, getListingsService, deleteListingService } = require("../services/listing.service")
+const { createListingService, updateListingByIdService, getListingsService, deleteListingService, getListingByName } = require("../services/listing.service")
 
 
 //Listing creation
 exports.createListing=async(req,res)=>{
     try {
         const data=req.body;
+        const isExist=await getListingByName(data?.name);
+        if(isExist){
+            res.status(200).json({
+                data:null,
+                message:"listing already exist with this name."
+            })
+            return;
+        }
         const listing=await createListingService(data);
         res.status(200).json({
             data:listing,

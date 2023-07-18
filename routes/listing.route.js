@@ -7,7 +7,9 @@ const router=express.Router();
 router.route("/")
 .post(listingController.createListing)
 .get(listingController.getListings)
+.delete(middleware.verifyJWT,listingController.deleteListing)
+
+router.route("/:id")
 .put(listingController.updateListing)
-.delete(listingController.deleteListing)
 
 module.exports=router;

@@ -15,12 +15,19 @@ exports.getListingByIdService=async(id)=>{
     return listing;
 }
 
+exports.getListingByName=async(name)=>{
+    const listing=await House.findOne({name});
+    return listing;
+}
+
 exports.updateListingByIdService=async(id,data)=>{
     const listing=await House.findOneAndUpdate({_id:id},data);
-    return listing;
+    const result={modifiedCount:listing?1:0}
+    return result
+    return {listing,modifiedCount:listing.nModified};
 }
 
 exports.deleteListingService=async(id)=>{
     const listing=await House.findByIdAndDelete(id);
-    return listing;
+    return {deletedCount:listing?1:0}
 }

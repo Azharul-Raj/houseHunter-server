@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 const houseSchema=new mongoose.Schema({
-    sellerId:{
+    ownerId:{
         type:mongoose.Schema.ObjectId,
         required:true
     },
